@@ -5,13 +5,13 @@ using System.Runtime.CompilerServices;
 using Raven.Client;
 using Raven.Client.Document;
 
-namespace Playground.CSharpMixins {
+namespace Playground.CSharpMixins.RavenDbMixin {
   public interface IRavenDbMixin { }
 
-  public static class RavenDbMixin {
+  public static class RavenDbMixinProvider {
     static readonly ConditionalWeakTable<IRavenDbMixin, IDocumentSession> _table;
 
-    static RavenDbMixin() {
+    static RavenDbMixinProvider() {
       _table = new ConditionalWeakTable<IRavenDbMixin, IDocumentSession>();
     }
     

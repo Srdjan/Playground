@@ -2,13 +2,13 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace Playground.CSharpMixins {
+namespace Playground.CSharpMixins.StopWatchMixin {
   public interface IStopWatchMixin { }
 
-  public static class StopWatchMixin {
+  public static class StopWatchMixinProvider {
     static readonly ConditionalWeakTable<IStopWatchMixin, Stopwatch> _table;
 
-    static StopWatchMixin() {
+    static StopWatchMixinProvider() {
       _table = new ConditionalWeakTable<IStopWatchMixin, Stopwatch>();
     }
     

@@ -47,8 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestUnderscore.cs" />
-    <Compile Include="TestMixins.cs" />
+    <Compile Include="StatemachineMixinTests.cs" />
+    <Compile Include="UnderscoreTests.cs" />
+    <Compile Include="RavenMixinTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
