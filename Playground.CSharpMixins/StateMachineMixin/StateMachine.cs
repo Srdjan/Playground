@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Playground.CSharpMixins.StateMachineMixin {
-  internal class StateMachine {
+  public class StateMachine {
     readonly List<State> _states;
     State _currentState;
 

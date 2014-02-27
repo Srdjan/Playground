@@ -11,16 +11,6 @@ namespace Playground.CSharpMixins.StateMachineMixin {
       _table = new ConditionalWeakTable<IStateMachinehMixin, StateMachine>();
     }
 
-    public static void Configure(this IStateMachinehMixin target, string name, List<State> states) {
-      var stateMachine = new StateMachine(states);
-      if (StateMachinehDefinitions.ContainsKey(name)) {
-        StateMachinehDefinitions.Update(name, stateMachine);
-      }
-      else {
-        StateMachinehDefinitions.Add(name, stateMachine);
-      }
-    }
-
     public static List<Action> Invoke(this IStateMachinehMixin target, string name, string action) {
       StateMachine stateMachine;
       var result = _table.TryGetValue(target, out stateMachine);

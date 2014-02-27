@@ -25,7 +25,8 @@ namespace Playground.Tests {
       harvestedState.Add(new Action("put", "eat", "/apples/{id}", consumingState));
       consumingState.Add(new Action("delete", "last-bite", "/apples/{id}", goneState));
 
-      this.Configure("apples", states);
+
+      StateMachinehDefinitions.Configure("apples", states);
     }
   }
 
