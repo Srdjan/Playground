@@ -6,22 +6,17 @@ namespace Playground.CSharpMixins.StateMachineMixin {
     readonly List<State> _states;
     State _currentState;
 
-    public StateMachine() {
-      _currentState = null;
-      _states = new List<State>();
-    }
-
-    public void Configure(List<State> states) {
-      if (states.Count == 0) {
+    public StateMachine(List<State> states) {
+      if (_states.Count == 0) {
         throw new Exception("At least one state required");
       }
-      _states.Clear();
-      _states.AddRange(states);
+      _states = states;
       _currentState = _states[0];
     }
 
     public List<Action> Invoke(string action) {
-      return _currentState.Invoke(action);
+      _currentState = _currentState.Invoke(action);
+      return _currentState.Actions;
     }
   }
 }

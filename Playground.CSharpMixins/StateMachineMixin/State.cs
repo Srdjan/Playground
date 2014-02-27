@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,8 +17,8 @@ namespace Playground.CSharpMixins.StateMachineMixin {
       return this;
     }
 
-    public List<Action> Invoke(string rel) {
-      return _actions[rel].NextState.Actions;
+    public State Invoke(string rel) {
+      return _actions[rel].NextState;
     }
   }
 }
