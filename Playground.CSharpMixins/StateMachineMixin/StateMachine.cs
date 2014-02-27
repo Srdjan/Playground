@@ -7,10 +7,10 @@ namespace Playground.CSharpMixins.StateMachineMixin {
     State _currentState;
 
     public StateMachine(List<State> states) {
+      _states = states;
       if (_states.Count == 0) {
         throw new Exception("At least one state required");
       }
-      _states = states;
       _currentState = _states[0];
     }
 
