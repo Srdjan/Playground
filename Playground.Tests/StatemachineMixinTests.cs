@@ -42,11 +42,19 @@ namespace Playground.Tests {
     public void test_sucessfull_found() {
       var applesResource = new ApplesResource();
 
-      //.. invoke post
+      //.. invoke api
 
       var actions = applesResource.Invoke("apples", "create");
-
       Assert.IsTrue(actions.Count == 3);
+
+      actions = applesResource.Invoke("apples", "add-weight");
+      Assert.IsTrue(actions.Count == 3);
+
+      actions = applesResource.Invoke("apples", "change-color");
+      Assert.IsTrue(actions.Count == 3);
+
+      actions = applesResource.Invoke("apples", "harvest");
+      Assert.IsTrue(actions.Count == 1);
     }
   }
 }

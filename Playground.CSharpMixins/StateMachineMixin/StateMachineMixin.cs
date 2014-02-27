@@ -15,11 +15,14 @@ namespace Playground.CSharpMixins.StateMachineMixin {
       State state;
       var result = _table.TryGetValue(target, out state);
       if (result) {
-        return state.Invoke(action).Actions;
+        _table.Remove(target);
       }
-      state = StateMachinehDefinitions.GetFirstState(name);
-      _table.Add(target, state);
-      return state.Invoke(action).Actions;
+      else {
+        state = StateMachinehDefinitions.GetFirstState(name);
+      }
+      var nextState = state.Invoke(action);
+      _table.Add(target, nextState);
+      return nextState.Actions;
     }
   }
 }
