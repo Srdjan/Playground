@@ -5,10 +5,10 @@ using Playground.CSharpUnderscore;
 namespace Playground.Play {
   class Program {
     static void Main(string[] args) {
-      List<double> list = new List<double>() { 0.1, 1.1, 2.2, 3.2, 4.1, 5.0, 6.7, 7.4 };
+      var list = new List<double>() { 0.1, 1.1, 2.2, 3.2, 4.1, 5.0, 6.7, 7.4 };
       _.each(list, i => print(i));
 
-      var list1 = _.map(list, i => Math.Truncate(i));
+      var list1 = _.map(list, Math.Truncate);
       _.each(list1, i => print(i));
 
       var list2 = _.reduce(list1, i => i < 12);

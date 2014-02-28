@@ -3,12 +3,27 @@ using NUnit.Framework;
 using Playground.CSharpMixins.StateMachineMixin;
 
 namespace Playground.Tests {
-  abstract class ResourceBase<T> { }
+  abstract class ResourceBase<T> {
+    static int nextId;
+    public int Id { get; private set; }
 
-  internal class ApplesResource : ResourceBase<Apple>, IStateMachinehMixin {
-    public static void ConfigureStates(List<State> states) {
-      StateMachinehDefinitions.Configure("apples", states);
+    protected ResourceBase() {
+      Id = nextId++;
     }
+    
+    protected ResourceBase(int id) {
+      Id = id;
+    }
+
+    public List<Action> Invoke(string action) {
+      var stateMachine = StateMachineRuntimeStore.Get(Id, StateMachineConfigurationStore.Get(GetType().Name));
+      return stateMachine.Invoke(action);
+    }
+  }
+
+  internal class ApplesResource : ResourceBase<Apple> {
+    public ApplesResource() { }
+    public ApplesResource(int id) : base(id) { }
   }
   
   [TestFixture]
@@ -35,25 +50,44 @@ namespace Playground.Tests {
       harvestedState.Add(new Action("put", "eat", "/apples/{id}", consumingState));
       consumingState.Add(new Action("delete", "last-bite", "/apples/{id}", goneState));
 
-      ApplesResource.ConfigureStates(states);
+      StateMachineConfigurationStore.Configure("ApplesResource", states);
     }
 
     [Test]
-    public void test_sucessfull_found() {
+    public void test_sucessfull_initial() {
       var applesResource = new ApplesResource();
 
       //.. invoke api
 
-      var actions = applesResource.Invoke("apples", "create");
+      var actions = applesResource.Invoke("create");
       Assert.IsTrue(actions.Count == 3);
 
-      actions = applesResource.Invoke("apples", "add-weight");
+      actions = applesResource.Invoke("add-weight");
       Assert.IsTrue(actions.Count == 3);
 
-      actions = applesResource.Invoke("apples", "change-color");
+      actions = applesResource.Invoke("change-color");
       Assert.IsTrue(actions.Count == 3);
 
-      actions = applesResource.Invoke("apples", "harvest");
+      actions = applesResource.Invoke("harvest");
+      Assert.IsTrue(actions.Count == 1);
+    }
+
+    [Test]
+    public void test_sucessfull_subsequent() {
+      var applesResource = new ApplesResource(2);
+
+      //.. invoke api
+
+      var actions = applesResource.Invoke("create");
+      Assert.IsTrue(actions.Count == 3);
+
+      actions = applesResource.Invoke("add-weight");
+      Assert.IsTrue(actions.Count == 3);
+
+      actions = applesResource.Invoke("change-color");
+      Assert.IsTrue(actions.Count == 3);
+
+      actions = applesResource.Invoke("harvest");
       Assert.IsTrue(actions.Count == 1);
     }
   }
