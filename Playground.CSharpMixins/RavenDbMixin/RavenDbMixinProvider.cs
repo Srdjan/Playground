@@ -31,9 +31,9 @@ namespace Playground.CSharpMixins.RavenDbMixin {
       return session.Query<T>().Where(predicate).ToList().SingleOrDefault();
     }
 
-    public static void Store<T>(this IRavenDbMixin target, T @Object) {
+    public static void Store<T>(this IRavenDbMixin target, T document) {
       var session = tryGet(target);
-      session.Store(@Object);
+      session.Store(document);
     }
 
     public static T Load<T>(this IRavenDbMixin target, int id) {

@@ -14,11 +14,11 @@ namespace Playground.CSharpMixins.StateMachineMixin {
       }
     }
 
-    static void update(string resourceName, List<State> states) {
+    static void update(string resourceName, IReadOnlyList<State> states) {
       _stateMachines.TryUpdate(resourceName, new StateMachine(states), _stateMachines[resourceName]);
     }
 
-    static void add(string resourceName, List<State> states) {
+    static void add(string resourceName, IReadOnlyList<State> states) {
       _stateMachines.TryAdd(resourceName, new StateMachine(states));
     }
 
