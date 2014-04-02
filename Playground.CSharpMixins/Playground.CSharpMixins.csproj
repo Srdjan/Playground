@@ -38,12 +38,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StateMachineMixin\Action.cs" />
-    <Compile Include="StateMachineMixin\State.cs" />
-    <Compile Include="StateMachineMixin\StateMachine.cs" />
-    <Compile Include="StateMachineMixin\StateMachineRuntimeStore.cs" />
-    <Compile Include="StateMachineMixin\StateMachineConfigurationStore.cs" />
-    <Compile Include="StateMachineMixin\StateMachineMixin.cs" />
     <Compile Include="StopWatchMixin\StopWatchMixinProvider.cs" />
     <Compile Include="RavenDbMixin\RavenDbMixinProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
