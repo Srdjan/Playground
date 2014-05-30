@@ -6,19 +6,23 @@ using Raven.Client;
 using Raven.Client.Document;
 
 namespace Playground.CSharpMixins.RavenDbMixin {
-  public interface IRavenDbMixin { }
+  public interface IRavenDbMixin {}
 
   public static class RavenDbMixinProvider {
+    const string RavenDbConnectionString = "RavenDB";
     static readonly ConditionalWeakTable<IRavenDbMixin, IDocumentSession> _table;
+    static IDocumentStore _docStore;
 
     static RavenDbMixinProvider() {
       _table = new ConditionalWeakTable<IRavenDbMixin, IDocumentSession>();
     }
-    
-    const string RavenDbConnectionString = "RavenDB";
-    static IDocumentStore _docStore;
+
     static IDocumentStore DocumentStore {
-      get { return _docStore ?? (_docStore = new DocumentStore { ConnectionStringName = RavenDbConnectionString }.Initialize()); }
+      get {
+        return _docStore ?? (_docStore = new DocumentStore {
+                                                             ConnectionStringName = RavenDbConnectionString
+                                                           }.Initialize());
+      }
     }
 
     public static List<T> Query<T>(this IRavenDbMixin target, Func<T, bool> predicate) {
